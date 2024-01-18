@@ -1,47 +1,44 @@
-import { useState } from "react"
+import { useRef} from "react"
 import style from "./Input.module.css"
 
 export function Input({onclickadd}){
+ const InputVAlue= useRef()
+const Inputdate=useRef()
+function addhandler(event){
+   event.preventDefault()
+  const InputVAlue1= InputVAlue.current.value
+const Inputdate2= Inputdate.current.value
+const arr=[...InputVAlue1]
+const arr1=[...Inputdate2.toString()]
 
-const[inputvalue,setinputvalue]=useState("")
-const[inputvalue1,setinputvalue1]=useState("")
+if(arr.length>0 && arr1.length>0 && isNaN(InputVAlue1)){
+ 
+onclickadd(InputVAlue1,Inputdate2);
 
-function  inputhandler(event) {
-  setinputvalue(event.target.value);
-}
-function  inputhandlerdate(event) {
-  setinputvalue1(event.target.value);
-  
-}
-function addhandler()
-{
-const arr=[...inputvalue]
-const arr1=[...inputvalue1.toString()]
-if(arr.length>0 && arr1.length>0){
+InputVAlue.current.value=""
+  Inputdate.current.value=""
+ 
 
-onclickadd(inputvalue,inputvalue1);
-setinputvalue("");
-setinputvalue1("")
 }
-else
-{
-  alert("please enter items and date")
+else{
+  alert("please enter the valid items and date and item name must be alphabetical")
 }
 
  }
 return<>
- <div className={`row g-3 ,${style.mainContainer}`}>
+{/* here we making form the div becouse  here i used the form to submit the data */}
+ <form className={`row g-3 ,${style.mainContainer}`} action="?" onSubmit={addhandler}>
       <div className={`col ${style.Inputdiv} `}>
-        <input type="text" className={`form-control ${style.input1}`} placeholder="Enter the Item"onChange={inputhandler} value={inputvalue} required/>
+        <input type="text" className={`form-control ${style.input1}`} placeholder="Enter the Item" ref={InputVAlue} required/>
       </div>
 
       <div className={`col ${style.date}`}>
-        <input type="date" className={`form-control ${style.date1}`} onChange={inputhandlerdate} value={inputvalue1}/>
+        <input type="date" className={`form-control ${style.date1}`} ref={Inputdate}/>
       </div>
       <div className={`col ${style.btm}`}>
-      <button type="submit" className={`btn btn-primary $  {style.btm1}`} onClick={addhandler}>Add</button>
+      <button type="submit" className={`btn btn-primary $  {style.btm1}`}>Add</button>
     </div>
-</div>
+</form>
     </>
 
  }

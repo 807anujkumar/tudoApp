@@ -9,8 +9,8 @@ function App() {
 const[showdata, setdata]=useState([])
   function datahandler(item,date)
 {
-   const newdata=[...showdata,{name:item,duedate:date}]
-setdata(newdata);
+  //  const newdata=[...showdata,{name:item,duedate:date}]
+setdata((curretValue)=>[...curretValue,{name:item,duedate:date}]);
 
   }
   function delet_handle(Name){
